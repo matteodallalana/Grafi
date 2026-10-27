@@ -2,7 +2,10 @@ public class Adjacency {
     private Node node;
     private int weight;
 
-    public Adjacency(){}
+    public Adjacency(Node node, int weight){
+        this.node = node;
+        this.weight = weight;
+    }
 
     public Node getNode(){return this.node;}
     public int getWeight(){return this.weight;}
