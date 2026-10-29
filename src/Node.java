@@ -20,4 +20,11 @@ public class Node<T> implements Comparable<T>{
     public int compareTo(T o) {
         return 0;
     }
+
+    @Override
+    public String toString(){
+        return String.format(
+          "| Node: %3s | --%3s-- | Node: %3s |"
+        );
+    }
 }

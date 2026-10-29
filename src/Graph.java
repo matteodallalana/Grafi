@@ -11,4 +11,10 @@ public class Graph<T>  {
         }
         if(nodes.containsKey(n.getValue())) System.out.println("il nodo è già presente nella lista");
     }
+
+    @Override
+    public String toString(){
+        String finalstring = "";
+
+    }
 }
