@@ -1,13 +1,14 @@
 import java.util.*;
 
-public class Graph {
-    private HashMap<String, Node> nodes;
+public class Graph<T>  {
+    private HashMap<T, Node<T>> nodes;
 
     public Graph(){}
 
-    public void addNode(Node n){
-        nodes.put(n.getName(), n);
-        if(nodes.containsKey(n)) System.out.println("il nodo è già presente nella lista");
+    public void addNode(Node<T> n){
+        if(!nodes.containsKey(n.getValue())){
+        nodes.put(n.getValue(), n);
+        }
+        if(nodes.containsKey(n.getValue())) System.out.println("il nodo è già presente nella lista");
     }
-
 }

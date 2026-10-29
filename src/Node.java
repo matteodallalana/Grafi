@@ -1,27 +1,23 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Node {
-    private final String name;
-    private ArrayList<Adjacency> adjacencies;
+public class Node<T> implements Comparable<T>{
+    private final T value;
+    private HashMap<Node<T>, Integer> adjacencies;
 
-    public Node(String name){
-        this.name = name;
+    public Node(T value){
+        this.value = value;
     }
 
-    public String getName(){
-        return this.name;
+    public T getValue(){
+        return this.value;
     }
 
-    public void addArch(Node n, int weight){
-        adjacencies.add(new Adjacency(n, weight));
+    public void addAdj(Node<T> n, int weight){
+        adjacencies.put(n, weight);
     }
 
-    public void removeAdj(Node n){
-        for(Adjacency a: adjacencies){
-            if(a.getNode() == n){
-                adjacencies.remove(a);
-                break;
-            }
-        }
+    @Override
+    public int compareTo(T o) {
+        return 0;
     }
 }
