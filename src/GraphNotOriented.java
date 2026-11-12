@@ -8,8 +8,8 @@ public class GraphNotOriented<T> extends Graph<T> {
         Node<T> destNode = nodes.get(dest);
 
         if (startNode != null && destNode != null) {
-            startNode.addAdjacency(destNode, weight); // Usa addAdjacency
-            destNode.addAdjacency(startNode, weight); // Usa addAdjacency
+            startNode.addAdjacency(destNode, weight);
+            destNode.addAdjacency(startNode, weight);
         } else {
             System.out.println("One or both nodes do not exist.");
         }
@@ -60,12 +60,12 @@ public class GraphNotOriented<T> extends Graph<T> {
 
     public GraphNotOriented<T> kruskal() {
         GraphNotOriented<T> mst = new GraphNotOriented<>();
-        Map<T, T> parent = new HashMap<>(); // Sostituisce DisjointSet
+        Map<T, T> parent = new HashMap<>();
         List<Arco> tuttiGliArchi = new ArrayList<>();
 
         for (T nodoVal : nodes.keySet()) {
             mst.addNode(nodoVal);
-            parent.put(nodoVal, nodoVal); // Ogni nodo è padre di se stesso
+            parent.put(nodoVal, nodoVal);
 
             for (var entry : nodes.get(nodoVal).getAdjacencies().entrySet()) {
                 tuttiGliArchi.add(new Arco(nodoVal, entry.getKey().getValue(), entry.getValue()));

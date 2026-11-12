@@ -9,7 +9,7 @@ public class GraphOriented<T> extends Graph<T> {
         Node<T> destNode = nodes.get(dest);
 
         if (startNode != null && destNode != null) {
-            startNode.addAdjacency(destNode, weight); // Usa addAdjacency
+            startNode.addAdjacency(destNode, weight);
         } else {
             System.out.println("One or both nodes do not exist.");
         }
