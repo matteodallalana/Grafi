@@ -30,4 +30,24 @@ public abstract class Graph<T> {
             System.out.println("One or both nodes do not exist.");
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (T key : nodes.keySet()) {
+            sb.append("Nodo ").append(key).append(" -> ");
+            Node<T> node = nodes.get(key);
+
+            // Iteriamo sulle adiacenze del nodo
+            for (var entry : node.getAdjacencies().entrySet()) {
+                T vicino = entry.getKey().getValue();
+                float peso = entry.getValue();
+                sb.append("[").append(vicino).append(" (peso: ").append(peso).append(")] ");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
 }

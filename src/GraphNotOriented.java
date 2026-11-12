@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class GraphNotOriented<T> extends Graph<T> {
 
@@ -60,6 +59,38 @@ public class GraphNotOriented<T> extends Graph<T> {
     }
 
     public GraphNotOriented<T> kruskal() {
-        return new GraphNotOriented<>();
+        GraphNotOriented<T> mst = new GraphNotOriented<>();
+        Map<T, T> parent = new HashMap<>(); // Sostituisce DisjointSet
+        List<Arco> tuttiGliArchi = new ArrayList<>();
+
+        for (T nodoVal : nodes.keySet()) {
+            mst.addNode(nodoVal);
+            parent.put(nodoVal, nodoVal); // Ogni nodo è padre di se stesso
+
+            for (var entry : nodes.get(nodoVal).getAdjacencies().entrySet()) {
+                tuttiGliArchi.add(new Arco(nodoVal, entry.getKey().getValue(), entry.getValue()));
+            }
+        }
+
+        tuttiGliArchi.sort((a, b) -> Float.compare(a.peso, b.peso));
+
+        for (Arco arco : tuttiGliArchi) {
+            T radiceDa = arco.da;
+            while (!parent.get(radiceDa).equals(radiceDa)) {
+                radiceDa = parent.get(radiceDa);
+            }
+
+            T radiceA = arco.a;
+            while (!parent.get(radiceA).equals(radiceA)) {
+                radiceA = parent.get(radiceA);
+            }
+
+            if (!radiceDa.equals(radiceA)) {
+                mst.addEdge(arco.da, arco.a, arco.peso);
+                parent.put(radiceDa, radiceA);
+            }
+        }
+
+        return mst;
     }
 }
