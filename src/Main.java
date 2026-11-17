@@ -15,7 +15,7 @@ public class Main {
         go.addNode("F");
 
         go.addEdge("A", "B", 2);
-        go.addEdge("B", "C", 7);
+        go.addEdge("A", "C", 7);
         go.addEdge("A", "D", 9);
         go.addEdge("A", "F", 20);
         go.addEdge("B","D", 6);

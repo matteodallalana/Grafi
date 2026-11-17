@@ -2,6 +2,10 @@ import java.util.*;
 
 public class GraphNotOriented<T> extends Graph<T> {
 
+    public GraphNotOriented(String rrcc) {
+        super(rrcc);
+    }
+
     @Override
     public void addEdge(T source, T dest, float weight) {
         Node<T> startNode = nodes.get(source);
@@ -34,7 +38,7 @@ public class GraphNotOriented<T> extends Graph<T> {
         visitati.add(radix);
 
         for (var entry : nodes.get(radix).getAdjacencies().entrySet()) {
-            codaArchi.add(new Arco(radix, entry.getKey().getValue(), entry.getValue()));
+            codaArchi.add(new Arco(radix, entry.getKey().getId(), entry.getValue()));
         }
 
         while (!codaArchi.isEmpty()) {
@@ -49,7 +53,7 @@ public class GraphNotOriented<T> extends Graph<T> {
             visitati.add(nuovoNodo);
 
             for (var entry : nodes.get(nuovoNodo).getAdjacencies().entrySet()) {
-                T vicino = entry.getKey().getValue();
+                T vicino = entry.getKey().getId();
                 if (!visitati.contains(vicino)) {
                     codaArchi.add(new Arco(nuovoNodo, vicino, entry.getValue()));
                 }
@@ -63,12 +67,12 @@ public class GraphNotOriented<T> extends Graph<T> {
         Map<T, T> parent = new HashMap<>();
         List<Arco> tuttiGliArchi = new ArrayList<>();
 
-        for (T nodoVal : nodes.keySet()) {
+        for (T     nodoVal : nodes.keySet()) {
             mst.addNode(nodoVal);
             parent.put(nodoVal, nodoVal);
 
             for (var entry : nodes.get(nodoVal).getAdjacencies().entrySet()) {
-                tuttiGliArchi.add(new Arco(nodoVal, entry.getKey().getValue(), entry.getValue()));
+                tuttiGliArchi.add(new Arco(nodoVal, entry.getKey().getId(), entry.getValue()));
             }
         }
 

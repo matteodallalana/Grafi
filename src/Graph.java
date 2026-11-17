@@ -1,28 +1,40 @@
 import java.util.HashMap;
 
 public abstract class Graph<T> {
-    protected HashMap<T, Node<T>> nodes;
+    protected HashMap<String, Node> nodes;
+    private String size;
 
-    public Graph() {
+
+    public Graph(String rrcc) {
+        this.size = rrcc;
         this.nodes = new HashMap<>();
     }
 
-    public void addNode(T value) {
-        if (!nodes.containsKey(value)) {
-            nodes.put(value, new Node<>(value));
+    public void addNode(String id) {
+        if (!nodes.containsKey(id)) {
+            nodes.put(id, new Node(-1, -1));
         } else {
             System.out.println("Element already inside the graph.");
         }
     }
 
-    public HashMap<T, Node<T>> getNodesMap() {
+    public void addNode(int col, int row) {
+        String id = "" + row + col;
+        if (!nodes.containsKey(id)) {
+            nodes.put(id, new Node(col, row));
+        } else {
+            System.out.println("Element already inside the graph.");
+        }
+    }
+
+    public HashMap<String, Node> getNodesMap() {
         return this.nodes;
     }
 
 
     public void addEdge(T start, T dest, float weight) {
-        Node<T> startNode = nodes.get(start);
-        Node<T> destNode = nodes.get(dest);
+        Node startNode = nodes.get(start);
+        Node destNode = nodes.get(dest);
 
         if (startNode != null && destNode != null) {
             startNode.addAdjacency(destNode, weight);
@@ -31,17 +43,30 @@ public abstract class Graph<T> {
         }
     }
 
+    public int getCols(){
+        return Integer.parseInt(this.size) % 100;
+    }
+
+    public int getRows(){
+        return Integer.parseInt(this.size) / 100;
+    }
+
+    public String getSize(){
+        return this.size;
+    }
+
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (T key : nodes.keySet()) {
+        for (String key : nodes.keySet()) {
             sb.append("Nodo ").append(key).append(" -> ");
-            Node<T> node = nodes.get(key);
+            Node node = nodes.get(key);
 
-            // Iteriamo sulle adiacenze del nodo
             for (var entry : node.getAdjacencies().entrySet()) {
-                T vicino = entry.getKey().getValue();
+                String vicino = entry.getKey().getId();
                 float peso = entry.getValue();
                 sb.append("[").append(vicino).append(" (peso: ").append(peso).append(")] ");
             }

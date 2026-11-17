@@ -3,10 +3,14 @@ import java.util.PriorityQueue;
 
 public class GraphOriented<T> extends Graph<T> {
 
+    public GraphOriented(String rrcc) {
+        super(rrcc);
+    }
+
     @Override
     public void addEdge(T source, T dest, float weight) {
-        Node<T> startNode = nodes.get(source);
-        Node<T> destNode = nodes.get(dest);
+        Node startNode = nodes.get(source);
+        Node destNode = nodes.get(dest);
 
         if (startNode != null && destNode != null) {
             startNode.addAdjacency(destNode, weight);
@@ -33,15 +37,15 @@ public class GraphOriented<T> extends Graph<T> {
 
         while (!coda.isEmpty()) {
             T corrente = coda.poll();
-            Node<T> nodoCorrente = nodes.get(corrente);
+            Node nodoCorrente = nodes.get(corrente);
             float distCorrente = risultati.get(corrente).getDistance();
 
             if (distCorrente == Float.MAX_VALUE) break;
 
             for (var entry : nodoCorrente.getAdjacencies().entrySet()) {
-                Node<T> vicino = entry.getKey();
+                Node vicino = entry.getKey();
                 float pesoArco = entry.getValue();
-                T valoreVicino = vicino.getValue();
+                T valoreVicino = vicino.getId();
 
                 float nuovaDistanza = distCorrente + pesoArco;
 
@@ -70,18 +74,18 @@ public class GraphOriented<T> extends Graph<T> {
         int numeroNodi = nodes.size();
 
         for (int i = 0; i < numeroNodi - 1; i++) {
-            for (Node<T> u : nodes.values()) {
-                float distU = risultati.get(u.getValue()).getDistance();
+            for (Node u : nodes.values()) {
+                float distU = risultati.get(u.getId()).getDistance();
                 if (distU == Float.MAX_VALUE) continue;
 
                 for (var entry : u.getAdjacencies().entrySet()) {
-                    Node<T> v = entry.getKey();
+                    Node v = entry.getKey();
                     float peso = entry.getValue();
-                    float distV = risultati.get(v.getValue()).getDistance();
+                    float distV = risultati.get(v.getId()).getDistance();
 
                     if (distU + peso < distV) {
-                        risultati.get(v.getValue()).setDistance(distU + peso);
-                        risultati.get(v.getValue()).setPrev(u.getValue());
+                        risultati.get(v.getId()).setDistance(distU + peso);
+                        risultati.get(v.getId()).setPrev(u.getId());
                     }
                 }
             }
